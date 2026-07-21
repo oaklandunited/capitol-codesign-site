@@ -1517,15 +1517,101 @@ p{margin:0}
 
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  /* ---- Forms: front-end only. Wire to your handler before launch. ---- */
-  document.getElementById('quoteForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    alert('Form submitted (demo). Connect this to your WordPress form handler, Formspree, or email endpoint before launch.');
-  });
-  document.getElementById('newsForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    alert('Newsletter signup (demo). Connect to your email platform before launch.');
-  });
+  /* ---- Resend Email Integration ---- */
+  var quoteForm = document.getElementById('quoteForm');
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = quoteForm.querySelector('button[type="submit"]');
+      var originalBtnText = btn.innerHTML;
+
+      var name = document.getElementById('qName').value.trim();
+      var email = document.getElementById('qEmail').value.trim();
+      var company = document.getElementById('qCompany').value.trim();
+      var budget = document.getElementById('qBudget').value;
+      var details = document.getElementById('qDetails').value.trim();
+
+      var services = [];
+      quoteForm.querySelectorAll('input[name="services"]:checked').forEach(function(cb) {
+        services.push(cb.value);
+      });
+
+      if (!name || !email) {
+        alert('Please fill in your name and email address.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = 'Sending...';
+
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'quote',
+          name: name,
+          email: email,
+          company: company,
+          budget: budget,
+          services: services,
+          details: details
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        quoteForm.innerHTML = '<div style="padding: 2.5rem; text-align: center; background: rgba(255,255,255,.05); border-radius: var(--radius); border: 1.5px solid var(--brand-orange);">' +
+          '<h3 style="font-size: 1.8rem; color: #fff; margin-bottom: 1rem;">Thank you, ' + escapeHtml(name) + '!</h3>' +
+          '<p style="color: var(--fg-body); font-size: 1.1rem; line-height: 1.6;">Your project quote request has been sent successfully. We sent a confirmation email to <strong>' + escapeHtml(email) + '</strong>.</p>' +
+          '<p style="color: var(--accent-ink); font-size: 0.95rem; margin-top: 1.2rem;">A senior principal will review your inquiry and reply within 1 business day.</p>' +
+          '</div>';
+      })
+      .catch(function(err) {
+        console.error('Submission error:', err);
+        btn.disabled = false;
+        btn.innerHTML = originalBtnText;
+        alert('There was a problem sending your inquiry. Please email us directly at agency@capitolcodesign.com or call 916-616-8102.');
+      });
+    });
+  }
+
+  var newsForm = document.getElementById('newsForm');
+  if (newsForm) {
+    newsForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var input = document.getElementById('newsEmail');
+      var email = input.value.trim();
+      var btn = newsForm.querySelector('button[type="submit"]');
+
+      if (!email) return;
+
+      btn.disabled = true;
+
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'newsletter',
+          email: email
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        newsForm.innerHTML = '<span style="color: var(--brand-peach); font-size: 0.9rem; font-weight: 500;">✓ Subscribed! Thank you.</span>';
+      })
+      .catch(function(err) {
+        console.error('Newsletter error:', err);
+        btn.disabled = false;
+        alert('Could not subscribe. Please try again or email us directly.');
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
 })();
 </script>
 </body>

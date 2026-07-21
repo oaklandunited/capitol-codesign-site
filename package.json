@@ -1,0 +1,9 @@
+{
+  "name": "capitol-codesign-site",
+  "version": "1.0.0",
+  "description": "Capitol CoDesign marketing site with Resend email integration",
+  "private": true,
+  "dependencies": {
+    "resend": "^3.2.0"
+  }
+}
