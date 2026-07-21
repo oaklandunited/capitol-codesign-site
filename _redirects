@@ -1,0 +1,13 @@
+# Force the apex/www choice and keep old WordPress paths from 404ing.
+# Netlify serves these top-down; first match wins.
+
+/index.html            /                 301!
+/home                  /                 301
+/services              /#services        301
+/about                 /#about           301
+/contact               /#contact         301
+/quote                 /#quote           301
+/ai                    /#ai              301
+
+# Anything unmatched falls through to the 404 page.
+/*                     /404.html         404

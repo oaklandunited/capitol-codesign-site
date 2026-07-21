@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Page not found | Capitol CoDesign</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#16283f">
+<link rel="icon" href="https://www.capitolcodesign.com/wp-content/uploads/2022/12/Capitol-CoDesign-No-Location.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand-navy:#223a60;--brand-orange:#ec965a;--brand-peach:#f1b98c;
+  --orange-deep:#a45213;--ink-deep:#101f33;--cream:#f7f3ea;
+  --display:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+[data-theme="dark"]{--bg:#16283f;--fg:#fff;--fg-body:#c5d2e2;--fg-muted:#a8b9cd;
+  --accent-ink:var(--brand-peach);--line-strong:#84a0b8;--btn-edge:transparent}
+[data-theme="light"]{--bg:#fff;--fg:var(--ink-deep);--fg-body:#4a5a70;--fg-muted:#55637a;
+  --accent-ink:var(--orange-deep);--line-strong:#767f8d;--btn-edge:var(--orange-deep)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;
+  background:var(--bg);color:var(--fg-body);font-family:var(--body);
+  padding:2rem clamp(1.25rem,5vw,4rem);position:relative;overflow:hidden;
+  -webkit-font-smoothing:antialiased}
+body::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 90% at 78% 12%,rgba(236,150,90,.24),transparent 58%),
+             radial-gradient(90% 80% at 10% 94%,rgba(39,72,105,.85),transparent 62%)}
+body::after{content:"";position:absolute;inset:0;opacity:.08;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1' opacity='.55'%3E%3Cpath d='M0 .5h160M.5 0v160'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M74 80h12M80 74v12M0 40h6M0 80h11M0 120h6M40 0v6M80 0v11M120 0v6'/%3E%3C/g%3E%3C/svg%3E");
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 45%,#000 20%,transparent 78%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 45%,#000 20%,transparent 78%)}
+[data-theme="light"] body::after{filter:invert(1);opacity:.05}
+main{position:relative;z-index:2;text-align:center;max-width:52ch}
+img.logo{height:82px;width:auto;aspect-ratio:470/362;margin:0 auto 2.2rem}
+.code{font-family:var(--display);font-weight:700;letter-spacing:.2em;font-size:.78rem;
+  text-transform:uppercase;color:var(--accent-ink);margin-bottom:1.1rem}
+h1{font-family:var(--display);font-weight:600;letter-spacing:-.04em;line-height:1.05;
+  font-size:clamp(2.2rem,6vw,3.6rem);color:var(--fg);margin:0 0 1.1rem}
+p{font-size:1.05rem;line-height:1.65;margin:0 auto 2.3rem;color:var(--fg-body)}
+.actions{display:flex;gap:.9rem;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--display);
+  font-weight:600;font-size:.95rem;padding:1rem 1.8rem;border-radius:100px;
+  border:1.5px solid transparent;text-decoration:none;
+  transition:transform .3s var(--ease),background .25s,border-color .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:3px solid var(--accent-ink);outline-offset:3px}
+.btn-primary{background:var(--brand-orange);color:var(--ink-deep);border-color:var(--btn-edge)}
+.btn-primary:hover{background:var(--brand-peach)}
+.btn-ghost{border-color:var(--line-strong);color:var(--fg)}
+.btn-ghost:hover{border-color:var(--fg)}
+.tel{margin-top:2.2rem;font-size:.92rem;color:var(--fg-muted)}
+.tel a{color:var(--accent-ink);text-decoration:none;font-weight:500}
+.tel a:hover{text-decoration:underline}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<main>
+  <img class="logo" src="https://www.capitolcodesign.com/wp-content/uploads/2022/12/Capitol-CoDesign-No-Location.png"
+       alt="Capitol CoDesign" width="470" height="362">
+  <div class="code">Error 404</div>
+  <h1>That page isn't here.</h1>
+  <p>The link may be out of date, or the address may have a typo in it. Everything on the site is reachable from the home page.</p>
+  <div class="actions">
+    <a class="btn btn-primary" href="/">Back to home</a>
+    <a class="btn btn-ghost" href="/#quote">Get a quote</a>
+  </div>
+  <p class="tel">Or call us directly at <a href="tel:9166168102">916-616-8102</a></p>
+</main>
+<script>
+// Match the main site's theme choice if one was saved.
+try{
+  var t = localStorage.getItem('cc-theme');
+  if(!t) t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  document.querySelector('meta[name="theme-color"]')
+    .setAttribute('content', t === 'light' ? '#ffffff' : '#16283f');
+}catch(e){}
+</script>
+</body>
+</html>
