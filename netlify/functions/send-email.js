@@ -33,8 +33,8 @@ exports.handler = async (event, context) => {
   }
 
   const resend = new Resend(apiKey);
-  const fromEmail = process.env.FROM_EMAIL || 'Capitol CoDesign <onboarding@resend.dev>';
-  const notificationEmail = process.env.NOTIFICATION_EMAIL || 'capitolcodesign@gmail.com';
+  const fromEmail = process.env.FROM_EMAIL || 'Capitol CoDesign <agency@capitolcodesign.com>';
+  const notificationEmail = process.env.NOTIFICATION_EMAIL || 'agency@capitolcodesign.com';
 
   try {
     const data = JSON.parse(event.body || '{}');
