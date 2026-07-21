@@ -1572,7 +1572,7 @@ p{margin:0}
         console.error('Submission error:', err);
         btn.disabled = false;
         btn.innerHTML = originalBtnText;
-        alert('There was a problem sending your inquiry. Please email us directly at agency@capitolcodesign.com or call 916-616-8102.');
+        alert('Submission error: ' + (err.message || 'Unable to send') + '\n\nIf this persists, please email agency@capitolcodesign.com or call 916-616-8102.');
       });
     });
   }
