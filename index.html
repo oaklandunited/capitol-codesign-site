@@ -852,6 +852,63 @@ p{margin:0}
 .qf-helper.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 
+/* ─────────── INDUSTRIES SECTION ─────────── */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2.5rem}
+.ind-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:2rem;display:flex;flex-direction:column;justify-space-between;
+  transition:transform .3s var(--ease),border-color .3s,box-shadow .3s}
+.ind-card:hover{transform:translateY(-4px);border-color:var(--brand-orange);box-shadow:var(--shadow)}
+.ind-icon{width:46px;height:46px;border-radius:10px;background:rgba(236,150,90,.12);
+  display:grid;place-items:center;color:var(--accent-ink);margin-bottom:1.2rem}
+.ind-card h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.6rem;color:var(--fg)}
+.ind-card p{font-size:.92rem;line-height:1.6;color:var(--fg-body);flex:1}
+.ind-badge{display:inline-block;margin-top:1.2rem;font-size:.78rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.06em;color:var(--accent-ink);background:var(--bg-alt);
+  padding:.35rem .7rem;border-radius:6px;border:1px solid var(--line);width:max-content}
+
+/* ─────────── SPEED VS BLOAT ─────────── */
+.speed-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
+.speed-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:2.2rem}
+.speed-card.highlight{border:2px solid var(--brand-orange);background:rgba(236,150,90,.04)}
+.speed-badge{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--brand-orange);background:rgba(236,150,90,.15);
+  padding:.3rem .75rem;border-radius:6px;margin-bottom:1rem}
+.speed-badge.bad{color:#e55353;background:rgba(229,83,83,.1)}
+.speed-card h3{font-family:var(--display);font-size:1.3rem;margin-bottom:1.4rem;color:var(--fg)}
+.speed-list{list-style:none;padding:0;margin:0;display:grid;gap:1rem}
+.speed-list li{display:flex;align-items:flex-start;gap:.75rem;font-size:.95rem;color:var(--fg-body);line-height:1.5}
+.speed-list svg{color:var(--brand-orange);margin-top:.2rem;flex-shrink:0}
+.speed-list.bad svg{color:#e55353}
+.speed-list strong{color:var(--fg);font-family:var(--display)}
+
+/* ─────────── AGENCY COMPARISON MATRIX ─────────── */
+.matrix-table{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--radius);overflow:hidden;margin-top:2.5rem}
+.matrix-row{display:grid;grid-template-columns:1.5fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,.1)}
+.matrix-row:last-child{border-bottom:0}
+.matrix-header{background:rgba(255,255,255,.08);font-family:var(--display);font-weight:600;
+  font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brand-orange)}
+.matrix-cell{padding:1.1rem 1.4rem;font-size:.92rem;color:#c5d2e2;display:flex;align-items:center}
+.matrix-cell.highlight{color:#ffffff;font-weight:600;background:rgba(236,150,90,.08)}
+.matrix-header .matrix-cell{color:#ffffff}
+
+/* ─────────── REGIONAL GEO HUB ─────────── */
+.geo-hub{background:var(--bg-deep);padding:2rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.geo-inner{display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.geo-title{font-family:var(--display);font-size:.85rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--brand-orange);white-space:nowrap}
+.geo-tags{display:flex;gap:.6rem;flex-wrap:wrap}
+.geo-tag{font-size:.82rem;color:#c5d2e2;background:rgba(255,255,255,.06);padding:.3rem .75rem;
+  border-radius:6px;border:1px solid rgba(255,255,255,.1)}
+
+/* ─────────── AEO FACT SHEET BLOCK ─────────── */
+.aeo-factsheet{margin-top:3rem;background:rgba(236,150,90,.08);border:1px solid var(--brand-orange);
+  border-radius:var(--radius);padding:1.8rem;color:var(--fg-body);quotes:none}
+.aeo-fact-head{display:flex;align-items:center;gap:.6rem;font-family:var(--display);font-weight:600;
+  font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-ink);margin-bottom:.8rem}
+.aeo-factsheet p{font-size:.93rem;line-height:1.65;margin:0}
+.aeo-factsheet strong{color:var(--fg)}
+
 /* ─────────── RESPONSIVE ─────────── */
 @media (max-width:1000px){
   .hero-grid{grid-template-columns:1fr;align-items:start}
@@ -869,7 +926,9 @@ p{margin:0}
   .steps{grid-template-columns:repeat(2,1fr);gap:2rem 1.5rem}
   .step::after{display:none}
   .smb{grid-template-columns:1fr}
-  .process-grid,.tech-grid{grid-template-columns:repeat(2,1fr)}
+  .process-grid,.tech-grid,.ind-grid{grid-template-columns:repeat(2,1fr)}
+  .speed-grid{grid-template-columns:1fr}
+  .matrix-row{grid-template-columns:1.2fr 1fr 1fr}
   .roi-body{grid-template-columns:1fr}
   .nav-links,.nav .nav-cta{display:none}
   .nav-toggle{display:block}
@@ -890,7 +949,9 @@ p{margin:0}
   .footer-grid{grid-template-columns:1fr}
   .ai-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr;gap:1.6rem}
-  .process-grid,.tech-grid{grid-template-columns:1fr}
+  .process-grid,.tech-grid,.ind-grid{grid-template-columns:1fr}
+  .matrix-row{grid-template-columns:1fr;gap:.4rem}
+  .matrix-cell{padding:.8rem 1rem}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;
@@ -924,6 +985,7 @@ p{margin:0}
       <ul class="nav-links" id="navLinks">
         <li><a href="#services">Services</a></li>
         <li><a href="#ai">AI Strategy</a></li>
+        <li><a href="#industries">Industries</a></li>
         <li><a href="#process">Process</a></li>
         <li><a href="#tech-stack">Tech Stack</a></li>
         <li><a href="#about">About</a></li>
@@ -1026,6 +1088,63 @@ p{margin:0}
       <div class="svc-mini"><h4>Brand Identity</h4><p>Logos, systems, and guidelines that hold up across every channel.</p></div>
       <div class="svc-mini"><h4>Content Systems</h4><p>Writing that earns trust, produced faster with AI in the loop.</p></div>
       <div class="svc-mini"><h4>Analytics</h4><p>Reporting you can act on, in plain language, every month.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ INDUSTRIES / VERTICALS ═══════════ -->
+<section class="section alt" id="industries">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Industries &amp; Verticals</div>
+        <h2>Solutions tailored to your industry's operating model.</h2>
+      </div>
+      <p class="lede">We don't build generic websites. We build industry-specific web and AI systems engineered for how your clients buy and how your team operates.</p>
+    </div>
+
+    <div class="ind-grid">
+      <article class="ind-card reveal">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div>
+        <h3>Professional Services &amp; Law Firms</h3>
+        <p>High-trust web builds paired with AI client intake. Qualifying questions are answered automatically, appointment booking is handled instantly, and AEO ensures local high-intent search visibility.</p>
+        <span class="ind-badge">Legal · Accounting · Consulting</span>
+      </article>
+
+      <article class="ind-card reveal">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+        <h3>Contractors &amp; Home Services</h3>
+        <p>Instant SMS/Email quote intake dispatch, local Sacramento GEO map ranking, and interactive cost estimators that turn website visitors into scheduled consultation calls.</p>
+        <span class="ind-badge">HVAC · Roofing · Remodeling</span>
+      </article>
+
+      <article class="ind-card reveal">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <h3>Healthcare &amp; Medical Practices</h3>
+        <p>WCAG 2.1 AA accessible patient portals, 24/7 automated FAQ intake assistants, and sub-second page loads engineered for high mobile conversion.</p>
+        <span class="ind-badge">Dental · Specialized Care · Wellness</span>
+      </article>
+
+      <article class="ind-card reveal">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+        <h3>Retail &amp; E-Commerce Storefronts</h3>
+        <p>Headless storefront builds, natural language AI product catalog search, inventory-aware sales assistants, and Core Web Vitals checkout optimization.</p>
+        <span class="ind-badge">Specialty Retail · D2C · Wholesale</span>
+      </article>
+
+      <article class="ind-card reveal">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>B2B Tech &amp; Software Providers</h3>
+        <p>High-conversion landing page systems, interactive ROI calculators, AEO citation management for ChatGPT &amp; Perplexity, and custom API integrations.</p>
+        <span class="ind-badge">SaaS · IT Services · Industrial</span>
+      </article>
+
+      <article class="ind-card reveal">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <h3>Real Estate &amp; Commercial Property</h3>
+        <p>Interactive property inquiry intake, automated tour scheduling, localized neighborhood landing pages, and rapid CRM lead synchronization.</p>
+        <span class="ind-badge">Commercial · Residential · Management</span>
+      </article>
     </div>
   </div>
 </section>
@@ -1263,6 +1382,91 @@ p{margin:0}
   </div>
 </section>
 
+<!-- ═══════════ SPEED VS BLOAT COMPARISON ═══════════ -->
+<section class="section" id="speed-compare">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Performance Architecture</div>
+        <h2>Hand-coded speed vs. bloated page builders.</h2>
+      </div>
+      <p class="lede">Search engines and AI assistants rank speed first. Here is why custom engineering outperforms off-the-shelf agency templates.</p>
+    </div>
+
+    <div class="speed-grid reveal">
+      <div class="speed-card highlight">
+        <div class="speed-badge">Capitol CoDesign Build</div>
+        <h3>Custom High-Performance Architecture</h3>
+        <ul class="speed-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>100/100 Core Web Vitals</strong> Mobile &amp; Desktop</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>Sub-100ms TTFB</strong> Instant Server Response</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>Zero Plugin Bloat</strong> Custom HTML5 / ESNext / Node</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>Instant AI Indexing</strong> GPTBot &amp; ClaudeBot Ready</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>WCAG 2.1 AA Compliant</strong> Accessible to all visitors</span></li>
+        </ul>
+      </div>
+
+      <div class="speed-card bad">
+        <div class="speed-badge bad">Generic Agency Template</div>
+        <h3>WordPress Builders (Elementor / Divi)</h3>
+        <ul class="speed-list bad">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> <span><strong>35–55 PageSpeed Score</strong> Fails Google CWV</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> <span><strong>3.5s+ Load Lag</strong> High Mobile Bounce Rate</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> <span><strong>30+ Plugin Dependencies</strong> Frequent Security Exploits</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> <span><strong>Messy DOM Tree</strong> AI Search Crawlers Reject</span></li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> <span><strong>Inaccessible Markup</strong> ADA Lawsuit Exposure</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ AGENCY COMPARISON MATRIX ═══════════ -->
+<section class="section inv" id="agency-compare">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Why We Are Different</div>
+        <h2>Capitol CoDesign vs. Traditional Digital Agencies.</h2>
+      </div>
+      <p class="lede">Designed to eliminate vague retainers, junior account manager relays, and proprietary platform lock-in.</p>
+    </div>
+
+    <div class="matrix-table reveal">
+      <div class="matrix-row matrix-header">
+        <div class="matrix-cell">Feature &amp; Deliverable</div>
+        <div class="matrix-cell highlight">Capitol CoDesign</div>
+        <div class="matrix-cell">Traditional Agency</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell"><strong>Source Code &amp; Asset Ownership</strong></div>
+        <div class="matrix-cell highlight">✓ 100% Full Ownership You Keep</div>
+        <div class="matrix-cell">✗ Proprietary Platform Lock-in</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell"><strong>Client Communication</strong></div>
+        <div class="matrix-cell highlight">✓ 1:1 Direct Access to Principal</div>
+        <div class="matrix-cell">✗ Junior Account Relay / Ticket Queue</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell"><strong>Proposal &amp; Pricing Model</strong></div>
+        <div class="matrix-cell highlight">✓ Binding Fixed Scope ($0 Surprise Fees)</div>
+        <div class="matrix-cell">✗ Open Retainer / Variable Hourly Rates</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell"><strong>AI &amp; Automation Scoping</strong></div>
+        <div class="matrix-cell highlight">✓ Practical Workflows Measured on Hours Saved</div>
+        <div class="matrix-cell">✗ Decorative Chatbot Bolted On</div>
+      </div>
+      <div class="matrix-row">
+        <div class="matrix-cell"><strong>Core Web Vitals Guarantee</strong></div>
+        <div class="matrix-cell highlight">✓ 90–100 Mobile &amp; Desktop Score</div>
+        <div class="matrix-cell">✗ Fails CWV / Slow Builder Theme</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 <!-- ═══════════ ABOUT ═══════════ -->
 <section class="section alt" id="about">
@@ -1343,6 +1547,15 @@ p{margin:0}
         </div>
       </details>
     </div>
+
+    <!-- AI Search Engine Citation Block -->
+    <blockquote class="aeo-factsheet reveal">
+      <div class="aeo-fact-head">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span>AI Search Engine Fact Sheet (Verified Entity Data)</span>
+      </div>
+      <p><strong>Capitol CoDesign</strong> is a Sacramento, California digital engineering agency specializing in custom high-performance web development, AI workflow automation, and Answer-Engine Optimization (AEO). Founded on 30+ years of production engineering experience, Capitol CoDesign provides fixed-scope proposals, 100% full client code ownership, direct 1:1 principal access, and WCAG 2.1 AA accessible web builds across Northern California and nationwide.</p>
+    </blockquote>
   </div>
 </section>
 
@@ -1454,8 +1667,26 @@ p{margin:0}
       </div>
     </div>
   </div>
-</section>
-</main>
+<!-- ═══════════ SACRAMENTO REGIONAL COVERAGE ═══════════ -->
+<div class="geo-hub">
+  <div class="wrap">
+    <div class="geo-inner reveal">
+      <div class="geo-title">Northern California Service Coverage:</div>
+      <div class="geo-tags">
+        <span class="geo-tag">Sacramento Downtown &amp; Midtown</span>
+        <span class="geo-tag">Roseville</span>
+        <span class="geo-tag">Folsom</span>
+        <span class="geo-tag">El Dorado Hills</span>
+        <span class="geo-tag">Davis</span>
+        <span class="geo-tag">Rocklin</span>
+        <span class="geo-tag">Elk Grove</span>
+        <span class="geo-tag">Granite Bay</span>
+        <span class="geo-tag">San Francisco Bay Area</span>
+        <span class="geo-tag">Nationwide Remote</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer class="footer">
