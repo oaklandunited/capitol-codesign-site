@@ -774,6 +774,60 @@ p{margin:0}
 .ai-grid .reveal:nth-child(5){--d:440ms}
 .ai-grid .reveal:nth-child(6){--d:550ms}
 
+/* ─────────── PROCESS SECTION ─────────── */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.5rem}
+.process-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:2rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;
+  transition:transform .3s var(--ease),border-color .3s,box-shadow .3s}
+.process-card:hover{transform:translateY(-4px);border-color:var(--brand-orange);box-shadow:var(--shadow)}
+.proc-step{font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--brand-orange);
+  line-height:1;margin-bottom:1rem}
+.process-card h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.6rem;color:var(--fg-head)}
+.process-card p{font-size:.92rem;line-height:1.6;color:var(--fg-body);flex:1}
+.proc-time{display:inline-block;margin-top:1.2rem;font-size:.78rem;font-weight:600;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--brand-peach);background:rgba(236,150,90,.1);
+  padding:.3rem .65rem;border-radius:6px;width:max-content}
+
+/* ─────────── ROI CALCULATOR ─────────── */
+.roi-calc{background:var(--bg-inv);color:#fff;border-radius:var(--radius);padding:clamp(2rem,4vw,3.2rem);
+  margin-top:3.5rem;border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
+.roi-head h3{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:.5rem;color:#fff}
+.roi-head p{color:var(--fg-body);max-width:54ch;font-size:1rem}
+.roi-body{display:grid;grid-template-columns:1.2fr 1fr;gap:2.5rem;margin-top:2rem;align-items:center}
+.roi-inputs{display:grid;gap:1.8rem}
+.roi-field{display:grid;gap:.6rem}
+.roi-label-wrap{display:flex;justify-content:space-between;align-items:center;font-size:.92rem;color:var(--fg-body)}
+.roi-val{font-family:var(--display);font-weight:600;color:var(--brand-orange);font-size:1.05rem}
+.roi-slider{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:4px;
+  background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+.roi-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;
+  border-radius:50%;background:var(--brand-orange);cursor:pointer;box-shadow:0 0 10px rgba(236,150,90,.5)}
+.roi-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--brand-orange);
+  cursor:pointer;border:none}
+.roi-outputs{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);
+  padding:2rem;display:grid;gap:1.5rem;text-align:center}
+.roi-stat-box .roi-num{font-family:var(--display);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;
+  color:#fff;line-height:1}
+.roi-stat-box.highlight .roi-num{color:var(--brand-orange)}
+.roi-stat-box .roi-desc{font-size:.85rem;color:var(--fg-body);margin-top:.4rem;text-transform:uppercase;letter-spacing:.06em}
+.roi-cta{width:100%;justify-content:center}
+
+/* ─────────── TECH STACK ─────────── */
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.5rem}
+.tech-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);
+  padding:1.8rem}
+.tech-cat{font-family:var(--display);font-size:.82rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--brand-orange);margin-bottom:1.2rem}
+.tech-list{list-style:none;padding:0;margin:0;display:grid;gap:.9rem}
+.tech-list li{font-size:.9rem;color:var(--fg-body);display:grid}
+.tech-list strong{color:#fff;font-family:var(--display);font-weight:600;font-size:.95rem}
+
+/* ─────────── HELPER FIELDS ─────────── */
+.qf-helper{display:none;margin-top:1rem;background:var(--bg-card);border:1px solid var(--line);
+  padding:1.2rem;border-radius:10px;animation:fadeIn .3s var(--ease)}
+.qf-helper.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
 /* ─────────── RESPONSIVE ─────────── */
 @media (max-width:1000px){
   .hero-grid{grid-template-columns:1fr;align-items:start}
@@ -791,6 +845,8 @@ p{margin:0}
   .steps{grid-template-columns:repeat(2,1fr);gap:2rem 1.5rem}
   .step::after{display:none}
   .smb{grid-template-columns:1fr}
+  .process-grid,.tech-grid{grid-template-columns:repeat(2,1fr)}
+  .roi-body{grid-template-columns:1fr}
   .nav-links,.nav .nav-cta{display:none}
   .nav-toggle{display:block}
   .nav.open .nav-links{display:grid;position:absolute;top:100%;left:var(--gutter);right:var(--gutter);
@@ -810,6 +866,7 @@ p{margin:0}
   .footer-grid{grid-template-columns:1fr}
   .ai-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr;gap:1.6rem}
+  .process-grid,.tech-grid{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;
@@ -843,6 +900,8 @@ p{margin:0}
       <ul class="nav-links" id="navLinks">
         <li><a href="#services">Services</a></li>
         <li><a href="#ai">AI Strategy</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#tech-stack">Tech Stack</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
@@ -947,6 +1006,46 @@ p{margin:0}
   </div>
 </section>
 
+<!-- ═══════════ PROCESS / HOW WE WORK ═══════════ -->
+<section class="section" id="process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Engagement Process</div>
+        <h2>Four steps from kickoff to launch.</h2>
+      </div>
+      <p class="lede">No endless meeting cycles, no vague timelines, and no unexpected line items. Here is how we take a project from initial call to production.</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-card reveal">
+        <span class="proc-step">01</span>
+        <h3>Intake &amp; Technical Audit</h3>
+        <p>We review your current site, search visibility, intake workflows, and administrative pain points in a focused 45-minute discovery session.</p>
+        <span class="proc-time">Week 1</span>
+      </div>
+      <div class="process-card reveal">
+        <span class="proc-step">02</span>
+        <h3>Architecture &amp; Fixed Scope</h3>
+        <p>You receive a detailed technical proposal with fixed pricing, clear deliverables, wireframe architecture, and a binding launch target.</p>
+        <span class="proc-time">Week 1–2</span>
+      </div>
+      <div class="process-card reveal">
+        <span class="proc-step">03</span>
+        <h3>Build &amp; System Integration</h3>
+        <p>We engineer your custom site, configure AI automations, tune Core Web Vitals performance, and integrate secure form processing.</p>
+        <span class="proc-time">Weeks 2–4</span>
+      </div>
+      <div class="process-card reveal">
+        <span class="proc-step">04</span>
+        <h3>Launch &amp; 100% Hand-Off</h3>
+        <p>Full deployment to your domain, complete source code handover, analytics setup, and team training so you own everything outright.</p>
+        <span class="proc-time">Launch Day</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ AI PRACTICE ═══════════ -->
 <section class="section alt" id="ai">
   <div class="wrap">
@@ -1043,6 +1142,99 @@ p{margin:0}
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> We will tell you when AI is the wrong answer</li>
         <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Your team trained to run it, not tied to a retainer</li>
       </ul>
+    </div>
+
+    <!-- Interactive ROI Calculator -->
+    <div class="roi-calc reveal" id="roiCalculator">
+      <div class="roi-head">
+        <div class="eyebrow">Interactive Savings Estimator</div>
+        <h3>Estimate your annual AI &amp; Web ROI</h3>
+        <p>See how much time and money custom workflow automations and speed optimization could save your team each year.</p>
+      </div>
+
+      <div class="roi-body">
+        <div class="roi-inputs">
+          <div class="roi-field">
+            <div class="roi-label-wrap">
+              <label for="hoursRange">Weekly hours spent on manual intake, support &amp; admin:</label>
+              <span class="roi-val" id="hoursVal">15 hrs/wk</span>
+            </div>
+            <input type="range" id="hoursRange" min="5" max="60" value="15" step="1" class="roi-slider">
+          </div>
+
+          <div class="roi-field">
+            <div class="roi-label-wrap">
+              <label for="rateRange">Blended hourly team cost ($/hr):</label>
+              <span class="roi-val" id="rateVal">$45/hr</span>
+            </div>
+            <input type="range" id="rateRange" min="25" max="120" value="45" step="5" class="roi-slider">
+          </div>
+        </div>
+
+        <div class="roi-outputs">
+          <div class="roi-stat-box">
+            <div class="roi-num" id="outHours">546 hrs</div>
+            <div class="roi-desc">Staff hours saved / year</div>
+          </div>
+          <div class="roi-stat-box highlight">
+            <div class="roi-num" id="outSavings">$24,570</div>
+            <div class="roi-desc">Estimated annual savings</div>
+          </div>
+          <a href="#quote" class="btn btn-primary roi-cta">Claim these savings <span class="btn-arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ TECH STACK ═══════════ -->
+<section class="section inv" id="tech-stack">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Engineering Foundation</div>
+        <h2>Built on production-proven technology.</h2>
+      </div>
+      <p class="lede">No black boxes or fragile low-code lock-in. We build using open, high-performance standards trusted by top tech teams.</p>
+    </div>
+
+    <div class="tech-grid reveal">
+      <div class="tech-card">
+        <div class="tech-cat">Modern Frontend</div>
+        <ul class="tech-list">
+          <li><strong>HTML5 / CSS3</strong> Semantic UI</li>
+          <li><strong>JavaScript</strong> ESNext Performance</li>
+          <li><strong>Next.js</strong> Headless React</li>
+          <li><strong>WordPress</strong> Custom &amp; Headless</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">AI &amp; Automation</div>
+        <ul class="tech-list">
+          <li><strong>Google Gemini API</strong> Multimodal AI</li>
+          <li><strong>OpenAI GPT-4o</strong> Custom Agents</li>
+          <li><strong>LangChain</strong> RAG Pipelines</li>
+          <li><strong>Python &amp; Node</strong> Workflow Engines</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Cloud &amp; Security</div>
+        <ul class="tech-list">
+          <li><strong>Cloudflare Turnstile</strong> Smart Defense</li>
+          <li><strong>Resend API</strong> Verified Email</li>
+          <li><strong>Netlify Functions</strong> Serverless API</li>
+          <li><strong>Firebase / Supabase</strong> Realtime Data</li>
+        </ul>
+      </div>
+      <div class="tech-card">
+        <div class="tech-cat">Search &amp; Analytics</div>
+        <ul class="tech-list">
+          <li><strong>Search Console</strong> Indexing &amp; CWV</li>
+          <li><strong>AEO Schema</strong> Entity Structured Data</li>
+          <li><strong>GA4 &amp; Plausible</strong> Privacy Analytics</li>
+          <li><strong>Bing Webmaster</strong> AI Copilot Indexing</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1174,6 +1366,16 @@ p{margin:0}
             <label class="chip"><input type="checkbox" name="services" value="SEM/PPC"><span>SEM / PPC</span></label>
             <label class="chip"><input type="checkbox" name="services" value="E-Commerce"><span>E-Commerce</span></label>
             <label class="chip"><input type="checkbox" name="services" value="Not sure"><span>Not sure yet</span></label>
+          </div>
+          <div class="qf-helper" id="qfHelper">
+            <div class="field" id="hUrlField" style="display:none;">
+              <label for="qUrl">Current Website URL (optional)</label>
+              <input type="url" id="qUrl" name="website_url" placeholder="https://yourcompany.com">
+            </div>
+            <div class="field" id="hCrmField" style="display:none;margin-top:.8rem;">
+              <label for="qCrm">Current CRMs or Tools Used (e.g. HubSpot, Zapier, Salesforce)</label>
+              <input type="text" id="qCrm" name="existing_tools" placeholder="HubSpot, Zapier, Notion, etc.">
+            </div>
           </div>
         </fieldset>
         <div class="field">
@@ -1403,6 +1605,8 @@ p{margin:0}
       btn.disabled = true;
       btn.innerHTML = 'Sending...';
 
+      var websiteUrl = document.getElementById('qUrl') ? document.getElementById('qUrl').value.trim() : '';
+      var existingTools = document.getElementById('qCrm') ? document.getElementById('qCrm').value.trim() : '';
       var hpWebsite = document.getElementById('qWebsite') ? document.getElementById('qWebsite').value : '';
       var duration = Date.now() - pageLoadTime;
       var cfTurnstileResponse = quoteForm.querySelector('[name="cf-turnstile-response"]') ? quoteForm.querySelector('[name="cf-turnstile-response"]').value : '';
@@ -1417,6 +1621,8 @@ p{margin:0}
           company: company,
           budget: budget,
           services: services,
+          websiteUrl: websiteUrl,
+          existingTools: existingTools,
           details: details,
           hpWebsite: hpWebsite,
           duration: duration,
@@ -1445,6 +1651,59 @@ p{margin:0}
       setTimeout(function() {
         if (window.turnstile) { try { turnstile.reset('#quoteTurnstile'); } catch(e){} }
       }, 0);
+    });
+  }
+
+  // 🧮 Interactive ROI Calculator Logic
+  var hoursRange = document.getElementById('hoursRange');
+  var rateRange = document.getElementById('rateRange');
+  var hoursVal = document.getElementById('hoursVal');
+  var rateVal = document.getElementById('rateVal');
+  var outHours = document.getElementById('outHours');
+  var outSavings = document.getElementById('outSavings');
+
+  function updateROI() {
+    if (!hoursRange || !rateRange) return;
+    var hrs = parseInt(hoursRange.value, 10);
+    var rate = parseInt(rateRange.value, 10);
+
+    hoursVal.textContent = hrs + ' hrs/wk';
+    rateVal.textContent = '$' + rate + '/hr';
+
+    var annualHoursSaved = Math.round(hrs * 52 * 0.70); // 70% automation efficiency
+    var annualSavings = Math.round(annualHoursSaved * rate);
+
+    outHours.textContent = annualHoursSaved.toLocaleString() + ' hrs';
+    outSavings.textContent = '$' + annualSavings.toLocaleString();
+  }
+
+  if (hoursRange && rateRange) {
+    hoursRange.addEventListener('input', updateROI);
+    rateRange.addEventListener('input', updateROI);
+    updateROI();
+  }
+
+  // 🎯 Interactive Helper Fields in Quote Form
+  var qfHelper = document.getElementById('qfHelper');
+  var hUrlField = document.getElementById('hUrlField');
+  var hCrmField = document.getElementById('hCrmField');
+
+  if (quoteForm && qfHelper) {
+    quoteForm.addEventListener('change', function(e) {
+      if (e.target.name === 'services') {
+        var checkedServices = Array.from(quoteForm.querySelectorAll('input[name="services"]:checked')).map(function(cb) { return cb.value; });
+        var hasWeb = checkedServices.includes('Web Design') || checkedServices.includes('E-Commerce') || checkedServices.includes('SEO');
+        var hasAi = checkedServices.includes('AI Integration') || checkedServices.includes('AI Automation');
+
+        if (hasWeb || hasAi) {
+          qfHelper.classList.add('active');
+        } else {
+          qfHelper.classList.remove('active');
+        }
+
+        if (hUrlField) hUrlField.style.display = hasWeb ? 'block' : 'none';
+        if (hCrmField) hCrmField.style.display = hasAi ? 'block' : 'none';
+      }
     });
   }
 

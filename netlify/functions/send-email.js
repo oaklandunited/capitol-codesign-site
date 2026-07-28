@@ -65,7 +65,7 @@ exports.handler = async (event, context) => {
     }
 
     if (formType === 'quote') {
-      const { name, email, company, budget, services = [], details } = data;
+      const { name, email, company, budget, services = [], websiteUrl, existingTools, details } = data;
 
       if (!name || !email) {
         return {
@@ -103,6 +103,8 @@ exports.handler = async (event, context) => {
                   <td style="padding: 8px 12px; font-weight: bold; border-bottom: 1px solid #eee;">Company:</td>
                   <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">${escapeHtml(company || 'N/A')}</td>
                 </tr>
+                ${websiteUrl ? `<tr><td style="padding: 8px 12px; font-weight: bold; border-bottom: 1px solid #eee;">Current Site:</td><td style="padding: 8px 12px; border-bottom: 1px solid #eee;"><a href="${escapeHtml(websiteUrl)}" target="_blank">${escapeHtml(websiteUrl)}</a></td></tr>` : ''}
+                ${existingTools ? `<tr><td style="padding: 8px 12px; font-weight: bold; border-bottom: 1px solid #eee;">Existing Tools/CRM:</td><td style="padding: 8px 12px; border-bottom: 1px solid #eee;">${escapeHtml(existingTools)}</td></tr>` : ''}
                 <tr>
                   <td style="padding: 8px 12px; font-weight: bold; border-bottom: 1px solid #eee;">Budget Range:</td>
                   <td style="padding: 8px 12px; border-bottom: 1px solid #eee;">${escapeHtml(budget || 'Not specified')}</td>
