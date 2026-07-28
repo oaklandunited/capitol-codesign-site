@@ -1339,7 +1339,7 @@ p{margin:0}
           <textarea id="qDetails" name="details" placeholder="Current site, what isn't working, timeline, anything else worth knowing."></textarea>
         </div>
         <!-- Cloudflare Turnstile Verification -->
-        <div class="cf-turnstile" id="quoteTurnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" data-appearance="interaction-only" style="margin-block:1rem;"></div>
+        <div class="cf-turnstile" id="quoteTurnstile" data-sitekey="0x4AAAAAAEAEjHpygXojSwIT" data-action="turnstile-spin-v2" data-theme="dark" data-appearance="interaction-only" style="margin-block:1rem;"></div>
         <button type="submit" class="btn btn-primary">Send it over <span class="btn-arrow">→</span></button>
         <p class="qf-fine">No newsletter signup. No sales sequence. Just a reply.</p>
       </form>
@@ -1420,7 +1420,7 @@ p{margin:0}
           <input type="email" id="newsEmail" placeholder="you@company.com" autocomplete="email" required>
           <button type="submit" aria-label="Subscribe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
           <!-- Cloudflare Turnstile Verification -->
-          <div class="cf-turnstile" id="newsTurnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" data-appearance="interaction-only" style="margin-top:0.5rem;width:100%;"></div>
+          <div class="cf-turnstile" id="newsTurnstile" data-sitekey="0x4AAAAAAEAEjHpygXojSwIT" data-action="turnstile-spin-v2" data-theme="dark" data-appearance="interaction-only" style="margin-top:0.5rem;width:100%;"></div>
         </form>
       </div>
     </div>
@@ -1598,6 +1598,11 @@ p{margin:0}
         btn.innerHTML = originalBtnText;
         alert('Submission error: ' + (err.message || 'Unable to send') + '\n\nIf this persists, please email agency@capitolcodesign.com or call 916-616-8102.');
       });
+
+      // Reset Turnstile token for retry safety
+      setTimeout(function() {
+        if (window.turnstile) { try { turnstile.reset('#quoteTurnstile'); } catch(e){} }
+      }, 0);
     });
   }
 
@@ -1637,6 +1642,11 @@ p{margin:0}
         btn.disabled = false;
         alert('Could not subscribe. Please try again or email us directly.');
       });
+
+      // Reset Turnstile token for retry safety
+      setTimeout(function() {
+        if (window.turnstile) { try { turnstile.reset('#newsTurnstile'); } catch(e){} }
+      }, 0);
     });
   }
 

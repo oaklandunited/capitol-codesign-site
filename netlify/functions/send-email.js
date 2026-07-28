@@ -208,10 +208,10 @@ exports.handler = async (event, context) => {
 };
 
 async function verifyTurnstileToken(token, clientIp) {
-  const secretKey = process.env.CF_TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
+  const secretKey = process.env.TURNSTILE_SECRET || process.env.CF_TURNSTILE_SECRET_KEY;
 
-  // If no token was submitted and secret key is not configured, allow fallback
-  if (!token && !process.env.CF_TURNSTILE_SECRET_KEY) {
+  // If secret key environment variable is not configured yet, pass through to avoid breaking site before env var set
+  if (!secretKey) {
     return { success: true };
   }
 
@@ -229,22 +229,27 @@ async function verifyTurnstileToken(token, clientIp) {
 
     const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: params
     });
 
+    if (!res.ok) {
+      throw new Error(`siteverify returned HTTP status ${res.status}`);
+    }
+
     const result = await res.json();
-    if (result.success) {
+    if (result && result.success === true) {
       return { success: true };
     } else {
+      const errorCodes = (result && result['error-codes']) ? result['error-codes'].join(', ') : 'unknown_error';
       return {
         success: false,
-        reason: `Verification failed (${(result['error-codes'] || []).join(', ')})`
+        reason: `Verification failed (${errorCodes})`
       };
     }
   } catch (err) {
     console.error('Error calling Cloudflare siteverify:', err);
-    // Allow pass on API network exception to avoid blocking genuine users during cloud outage
-    return { success: true };
+    return { success: false, reason: err.message };
   }
 }
 
