@@ -2422,6 +2422,89 @@ p{margin:0}
     showModal();
   }
 
+  function getOverlay() { return document.getElementById('aiModal'); }
+  function getDialog() { return document.getElementById('aiModalDialog'); }
+
+  function openWorkModal(idx) {
+    var item = aiWorkData[idx];
+    var dialog = getDialog();
+    if(!item || !dialog) return;
+    var html = '';
+    html += '<div class="modal-work-badge">' + escapeHtml(item.badge) + '</div>';
+    html += '<h3 class="modal-work-title">' + escapeHtml(item.title) + '</h3>';
+    html += '<p class="modal-work-lede">' + escapeHtml(item.lede) + '</p>';
+    
+    html += '<div class="modal-section-title">Key Deliverables &amp; Outcomes</div>';
+    html += '<ul class="modal-list">';
+    item.deliverables.forEach(function(d) {
+      html += '<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span>' + d + '</span></li>';
+    });
+    html += '</ul>';
+
+    html += '<div class="modal-section-title">Tech Stack &amp; Tools Deployed</div>';
+    html += '<div class="modal-tech-pills">';
+    item.stack.forEach(function(s) {
+      html += '<span class="modal-pill">' + escapeHtml(s) + '</span>';
+    });
+    html += '</div>';
+
+    html += '<a href="' + item.ctaHref + '" class="btn btn-primary modal-cta" style="width:100%;justify-content:center;" onclick="hideModal()"> ' + escapeHtml(item.ctaText) + '</a>';
+
+    dialog.innerHTML = '<button class="modal-close" id="aiModalClose" aria-label="Close modal">✕</button>' + html;
+    bindCloseBtn();
+    showModal();
+  }
+
+  function openStepModal(idx) {
+    var item = aiStepData[idx];
+    var dialog = getDialog();
+    if(!item || !dialog) return;
+    var html = '';
+    html += '<div class="modal-step-header">';
+    html += '  <div class="modal-step-num">' + escapeHtml(item.stepNum) + '</div>';
+    html += '  <div>';
+    html += '    <div class="modal-step-tag">' + escapeHtml(item.stepTag) + '</div>';
+    html += '    <h3 style="font-family:var(--display);font-size:1.35rem;margin:0;color:#fff">' + escapeHtml(item.title) + '</h3>';
+    html += '  </div>';
+    html += '</div>';
+
+    html += '<div class="modal-step-progress"><div class="modal-step-bar" style="width:' + item.progressWidth + '"></div></div>';
+    html += '<p class="modal-work-lede">' + escapeHtml(item.lede) + '</p>';
+
+    html += '<div class="modal-section-title">Phase Deliverables</div>';
+    html += '<ul class="modal-list">';
+    item.deliverables.forEach(function(d) {
+      html += '<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span>' + d + '</span></li>';
+    });
+    html += '</ul>';
+
+    html += '<div class="modal-section-title">Timeline &amp; Engagement Model</div>';
+    html += '<ul class="modal-list">';
+    item.details.forEach(function(det) {
+      html += '<li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg><span>' + det + '</span></li>';
+    });
+    html += '</ul>';
+
+    if(item.nextIndex >= 0) {
+      html += '<button type="button" class="btn btn-outline modal-next-btn" style="width:100%;justify-content:center;" data-next-step="' + item.nextIndex + '">' + escapeHtml(item.nextText) + '</button>';
+    } else {
+      html += '<a href="#quote" class="btn btn-primary modal-cta" style="width:100%;justify-content:center;" onclick="hideModal()">Start Your AI Project →</a>';
+    }
+
+    dialog.innerHTML = '<button class="modal-close" id="aiModalClose" aria-label="Close modal">✕</button>' + html;
+    bindCloseBtn();
+
+    var nextBtn = dialog.querySelector('.modal-next-btn');
+    if(nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        var nIdx = parseInt(this.getAttribute('data-next-step'), 10);
+        openStepModal(nIdx);
+      });
+    }
+
+    showModal();
+  }
+
   function bindCloseBtn() {
     var btn = document.getElementById('aiModalClose');
     if(btn) {
@@ -2430,55 +2513,73 @@ p{margin:0}
   }
 
   function showModal() {
-    modalOverlay.classList.add('active');
-    modalOverlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    var overlay = getOverlay();
+    if(overlay) {
+      overlay.classList.add('active');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   function hideModal() {
-    modalOverlay.classList.remove('active');
-    modalOverlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    var overlay = getOverlay();
+    if(overlay) {
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
   }
+  window.hideModal = hideModal;
 
-  // Event Listeners for Collection 1 (AI Work Cards)
-  document.querySelectorAll('.ai-card[data-ai-work]').forEach(function(card) {
-    card.addEventListener('click', function() {
-      var idx = parseInt(this.getAttribute('data-ai-work'), 10);
-      openWorkModal(idx);
-    });
-    card.addEventListener('keydown', function(e) {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        var idx = parseInt(this.getAttribute('data-ai-work'), 10);
-        openWorkModal(idx);
-      }
-    });
-  });
-
-  // Event Listeners for Collection 2 (AI Engagement Steps)
-  document.querySelectorAll('.steps .step[data-ai-step]').forEach(function(step) {
-    step.addEventListener('click', function() {
-      var idx = parseInt(this.getAttribute('data-ai-step'), 10);
-      openStepModal(idx);
-    });
-    step.addEventListener('keydown', function(e) {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        var idx = parseInt(this.getAttribute('data-ai-step'), 10);
-        openStepModal(idx);
-      }
-    });
-  });
-
-  // Close modal on backdrop click or ESC key
-  modalOverlay.addEventListener('click', function(e) {
-    if(e.target === modalOverlay) hideModal();
-  });
-
-  document.addEventListener('keydown', function(e) {
-    if(e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+  // Event Delegation for Clicks on Collection 1 (AI Work) and Collection 2 (AI Step)
+  document.addEventListener('click', function(e) {
+    // Check for backdrop overlay click to close
+    var overlay = getOverlay();
+    if(overlay && e.target === overlay) {
       hideModal();
+      return;
+    }
+
+    // Check for AI Work card click
+    var workCard = e.target.closest('[data-ai-work]');
+    if(workCard) {
+      var idx = parseInt(workCard.getAttribute('data-ai-work'), 10);
+      openWorkModal(idx);
+      return;
+    }
+
+    // Check for AI Engagement Step click
+    var stepCard = e.target.closest('[data-ai-step]');
+    if(stepCard) {
+      var idx = parseInt(stepCard.getAttribute('data-ai-step'), 10);
+      openStepModal(idx);
+      return;
+    }
+  });
+
+  // Keyboard Navigation (Enter/Space on cards & ESC key)
+  document.addEventListener('keydown', function(e) {
+    var overlay = getOverlay();
+    if(e.key === 'Escape' && overlay && overlay.classList.contains('active')) {
+      hideModal();
+      return;
+    }
+
+    if(e.key === 'Enter' || e.key === ' ') {
+      var workCard = e.target.closest('[data-ai-work]');
+      if(workCard) {
+        e.preventDefault();
+        var idx = parseInt(workCard.getAttribute('data-ai-work'), 10);
+        openWorkModal(idx);
+        return;
+      }
+      var stepCard = e.target.closest('[data-ai-step]');
+      if(stepCard) {
+        e.preventDefault();
+        var idx = parseInt(stepCard.getAttribute('data-ai-step'), 10);
+        openStepModal(idx);
+        return;
+      }
     }
   });
 
