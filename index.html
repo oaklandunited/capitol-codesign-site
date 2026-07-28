@@ -976,12 +976,19 @@ p{margin:0}
 /* ─────────── INTERACTIVE MODAL SYSTEM ─────────── */
 .ai-card, .steps .step, .ind-card{cursor:pointer;position:relative}
 .ai-card::after, .steps .step::after, .ind-card::after{
-  content:"Click for details ↗";
-  position:absolute;bottom:.8rem;right:1rem;font-size:.72rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:.06em;color:var(--brand-orange);
-  opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s;
+  content:"↗";
+  position:absolute;top:1.2rem;right:1.2rem;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(236,150,90,.14);border:1px solid rgba(236,150,90,.3);
+  color:var(--brand-orange);display:grid;place-items:center;
+  font-family:var(--display);font-size:1.15rem;font-weight:700;line-height:1;
+  transition:transform .3s var(--ease),background .3s,color .3s,box-shadow .3s;
 }
-.ai-card:hover::after, .steps .step:hover::after, .ind-card:hover::after{opacity:1;transform:none}
+.ai-card:hover::after, .steps .step:hover::after, .ind-card:hover::after{
+  transform:scale(1.18) rotate(45deg);
+  background:var(--brand-orange);color:var(--ink-deep);
+  box-shadow:0 0 18px rgba(236,150,90,.5);
+}
 
 .modal-overlay{
   position:fixed;inset:0;z-index:1000;
@@ -1270,6 +1277,27 @@ p{margin:0}
         <h3>Real Estate &amp; Commercial Property</h3>
         <p>Interactive property inquiry intake, automated tour scheduling, localized neighborhood landing pages, and rapid CRM lead synchronization.</p>
         <span class="ind-badge">Commercial · Residential · Management</span>
+      </article>
+
+      <article class="ind-card reveal" data-ind-card="6" tabindex="0" role="button" aria-label="View details for Restaurants, Dining & Culinary Brands">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <h3>Restaurants, Dining &amp; Culinary Brands</h3>
+        <p>Interactive digital menus, automated private event intake, instant table reservation sync, and local Sacramento GEO map optimization for high-intent diners.</p>
+        <span class="ind-badge">Fine Dining · Casual · Catering</span>
+      </article>
+
+      <article class="ind-card reveal" data-ind-card="7" tabindex="0" role="button" aria-label="View details for Boutique Hotels, Resorts & Hospitality">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4v16M2 8h20v12M2 17h20M7 8v5M17 8v5M12 8v5"/></svg></div>
+        <h3>Boutique Hotels, Resorts &amp; Hospitality</h3>
+        <p>Direct booking engine integrations, 24/7 automated guest concierge assistants, local area guide hubs, and zero-commission reservation pipelines.</p>
+        <span class="ind-badge">Hotels · Resorts · Vacation Rentals</span>
+      </article>
+
+      <article class="ind-card reveal" data-ind-card="8" tabindex="0" role="button" aria-label="View details for Independent Local & Neighborhood Businesses">
+        <div class="ind-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M3 7v14M21 7v14M6 11h4M14 11h4M6 16h4M14 16h4M9 3l3-2 3 2"/></svg></div>
+        <h3>Independent Local &amp; Neighborhood Businesses</h3>
+        <p>Localized Google GEO map authority, automated appointment and class scheduling, instant customer quote intake, and sub-second mobile web performance.</p>
+        <span class="ind-badge">Boutiques · Fitness · Local Services</span>
       </article>
     </div>
   </div>
@@ -2608,6 +2636,45 @@ p{margin:0}
       ],
       stack: ["Follow Up Boss & Yardi APIs", "MLS/IDX Feeds", "RealEstateAgent Schemas", "Mapbox & Spatial UI"],
       ctaText: "Discuss Real Estate Solutions →",
+      ctaHref: "#quote"
+    },
+    {
+      badge: "FINE DINING · CASUAL · CATERING",
+      title: "Restaurants, Dining & Culinary Brands",
+      lede: "Interactive digital menus, automated private event intake, instant table reservation sync, and local Sacramento GEO map optimization for high-intent diners.",
+      deliverables: [
+        "<strong>Private Event & Catering Intake</strong>: Automated screening for party size, date availability, and menu preferences before dispatches.",
+        "<strong>Instant Reservation Sync</strong>: Integrates directly with OpenTable, Resy, or SevenRooms without third-party commission fees.",
+        "<strong>High-Speed Mobile Menu System</strong>: Sub-second loading digital menus optimized for mobile searchers looking for local dining."
+      ],
+      stack: ["OpenTable & Resy Webhooks", "LocalBusiness JSON-LD", "Custom Event Intake Engine", "Next.js 100/100 CWV"],
+      ctaText: "Discuss Culinary Solutions →",
+      ctaHref: "#quote"
+    },
+    {
+      badge: "HOTELS · RESORTS · VACATION RENTALS",
+      title: "Boutique Hotels, Resorts & Hospitality",
+      lede: "Direct booking engine integrations, 24/7 automated guest concierge assistants, local area guide hubs, and zero-commission reservation pipelines.",
+      deliverables: [
+        "<strong>Zero-Commission Direct Bookings</strong>: Seamless booking interface that bypasses high OTA commission fees (Expedia/Booking.com).",
+        "<strong>24/7 Virtual Guest Concierge</strong>: AI assistant answers room amenity, parking, dining, and check-in queries automatically.",
+        "<strong>Localized Area & Experience Hubs</strong>: Hyper-local content guides that capture search traffic for regional travel and getaways."
+      ],
+      stack: ["Cloudbeds & Mews APIs", "Direct Booking Engine", "Hotel Schema Knowledge Graphs", "Supabase Real-Time"],
+      ctaText: "Discuss Hospitality Solutions →",
+      ctaHref: "#quote"
+    },
+    {
+      badge: "BOUTIQUES · FITNESS · LOCAL SERVICES",
+      title: "Independent Local & Neighborhood Businesses",
+      lede: "Localized Google GEO map authority, automated appointment and class scheduling, instant customer quote intake, and sub-second mobile web performance.",
+      deliverables: [
+        "<strong>Automated Class & Service Booking</strong>: Integrates directly with Mindbody, Acuity, or Square Appointments for 24/7 scheduling.",
+        "<strong>Sacramento GEO & Local Map Ranking</strong>: LocalBusiness schemas and sub-market entity badges targeting neighborhood search.",
+        "<strong>Instant Quote & Inquiry Alerts</strong>: Captures customer inquiries after hours and dispatches instant notification alerts to your team."
+      ],
+      stack: ["Square & Mindbody APIs", "Google Maps API", "LocalBusiness JSON-LD", "Twilio Instant Alerts"],
+      ctaText: "Discuss Local Business Solutions →",
       ctaHref: "#quote"
     }
   ];
