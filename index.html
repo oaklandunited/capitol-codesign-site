@@ -3,20 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Capitol CoDesign: Design. Develop. Deploy.</title>
-<meta name="description" content="Capitol CoDesign is a Sacramento digital agency building custom websites and practical AI integration. Automation that removes real work, not chatbots bolted onto a homepage.">
+<title>Capitol CoDesign | Sacramento Custom Web Design & Practical AI Automation</title>
+<meta name="description" content="Capitol CoDesign is a Sacramento digital agency building custom high-performance websites and practical AI workflow automation that removes real work.">
+<link rel="canonical" href="https://capitolcodesign.com/">
 <meta name="theme-color" content="#16283f">
 
+<!-- Geo Meta Tags for Local SEO -->
+<meta name="geo.region" content="US-CA">
+<meta name="geo.placename" content="Sacramento">
+<meta name="geo.position" content="38.5816;-121.4944">
+<meta name="ICBM" content="38.5816, -121.4944">
+
+<!-- Open Graph Tags -->
 <link rel="icon" href="/assets/logo.png">
 <link rel="apple-touch-icon" href="/assets/logo.png">
-<meta property="og:title" content="Capitol CoDesign: Design. Develop. Deploy.">
+<meta property="og:title" content="Capitol CoDesign | Sacramento Custom Web Design & Practical AI Automation">
 <meta property="og:description" content="A Sacramento digital agency building custom websites and practical AI automation that earns its keep.">
-<meta property="og:image" content="/assets/logo.png">
+<meta property="og:image" content="https://capitolcodesign.com/assets/logo.png">
+<meta property="og:url" content="https://capitolcodesign.com/">
 <meta property="og:type" content="website">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Capitol CoDesign | Sacramento Custom Web Design & Practical AI Automation">
+<meta name="twitter:description" content="A Sacramento digital agency building custom websites and practical AI automation that earns its keep.">
+<meta name="twitter:image" content="https://capitolcodesign.com/assets/logo.png">
+
+<!-- AEO & GEO Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://capitolcodesign.com/#organization",
+      "name": "Capitol CoDesign",
+      "url": "https://capitolcodesign.com",
+      "logo": "https://capitolcodesign.com/assets/logo.png",
+      "image": "https://capitolcodesign.com/assets/logo.png",
+      "description": "Sacramento digital agency building custom high-performance websites and practical AI workflow automation that removes real work.",
+      "telephone": "+1-916-616-8102",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Sacramento",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "38.5816",
+        "longitude": "-121.4944"
+      },
+      "knowsAbout": [
+        "Web Development",
+        "Custom AI Integration",
+        "Workflow Automation",
+        "Answer-Engine Optimization (AEO)",
+        "Accessibility (WCAG 2.1 AA)"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://capitolcodesign.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is practical AI automation for small businesses?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Practical AI automation replaces repetitive manual tasks—such as client intake, lead qualification, appointment scheduling, and invoicing—with background workflow agents that save staff hours, rather than decorative homepage chatbots."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Answer-Engine Optimization (AEO) work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AEO structures your website data, schemas, and content so AI search assistants like ChatGPT, Claude, and Gemini can index, cite, and recommend your business when prospective clients ask conversational questions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why hire Capitol CoDesign instead of a traditional agency?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Capitol CoDesign offers 30+ years of engineering experience with direct principal access, fixed-scope proposals, transparent pricing, and 100% full ownership of code and assets."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<!-- Cloudflare Turnstile Script -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <style>
 /* ═══════════════════════════════════════════════════════════════
@@ -614,6 +700,30 @@ p{margin:0}
 }
 .about-card h3,.about-card .cred{z-index:2}
 
+/* FAQ / AEO Component */
+.faq-grid{display:grid;gap:1.2rem;margin-top:2.5rem}
+.faq-item{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  padding:1.4rem 1.8rem;transition:border-color .3s var(--ease),box-shadow .3s var(--ease);
+}
+.faq-item[open]{border-color:var(--brand-orange);box-shadow:var(--shadow)}
+.faq-item summary{
+  cursor:pointer;list-style:none;display:flex;align-items:center;justify-content:space-between;
+  user-select:none;outline:none;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary h3{font-size:1.15rem;margin:0;color:var(--fg);font-weight:600}
+.faq-item summary::after{
+  content:"+";font-family:var(--display);font-size:1.4rem;font-weight:700;
+  color:var(--accent-ink);transition:transform .3s var(--ease);margin-left:1rem;
+}
+.faq-item[open] summary::after{content:"−";transform:rotate(180deg)}
+.faq-ans{margin-top:1rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--fg-body);font-size:1rem;line-height:1.65}
+
+/* Antigravity Glassmorphism & Depth Enhancements */
+.svc-card{backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .4s var(--ease),border-color .3s var(--ease),box-shadow .4s var(--ease)}
+.svc-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px -18px rgba(0,0,0,.45)}
+
 /* ═══════════ MOTION ═══════════ */
 
 /* Scroll progress: a thin machined rule across the top */
@@ -1121,6 +1231,49 @@ p{margin:0}
   </div>
 </section>
 
+<!-- ═══════════ FAQ / AEO ═══════════ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Frequently Asked Questions</div>
+        <h2>Direct answers for humans &amp; search engines.</h2>
+      </div>
+      <p class="lede">Clear answers on how custom web development, background AI automation, and Answer-Engine Optimization save hours and drive business growth.</p>
+    </div>
+
+    <div class="faq-grid reveal">
+      <details class="faq-item" open>
+        <summary><h3>What is practical AI automation for small businesses?</h3></summary>
+        <div class="faq-ans">
+          <p>Practical AI automation replaces repetitive manual tasks—such as client intake, lead qualification, appointment scheduling, and invoicing—with background workflow agents that save staff hours, rather than decorative homepage chatbots.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><h3>How does Answer-Engine Optimization (AEO) work?</h3></summary>
+        <div class="faq-ans">
+          <p>AEO structures your website data, schemas, and content so AI search assistants like ChatGPT, Claude, and Gemini can index, cite, and recommend your business when prospective clients ask conversational queries.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><h3>Why hire Capitol CoDesign instead of a traditional digital agency?</h3></summary>
+        <div class="faq-ans">
+          <p>Capitol CoDesign offers 30+ years of engineering experience with direct principal access, fixed-scope proposals, transparent pricing, and 100% full ownership of code and assets.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><h3>What is the timeline for kickoff to launch?</h3></summary>
+        <div class="faq-ans">
+          <p>Most projects take between 2 to 4 weeks from initial strategy audit to full production deployment, depending on system complexity.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ QUOTE FORM ═══════════ -->
 <section class="section quoteform inv quote-tex" id="quote">
   <div class="wrap">
@@ -1137,6 +1290,11 @@ p{margin:0}
       </div>
 
       <form class="qf-card reveal" id="quoteForm" novalidate>
+        <!-- Anti-spam honeypot field (hidden from human visitors) -->
+        <div style="position:absolute;left:-9999px;top:-9999px;height:1px;width:1px;overflow:hidden;" aria-hidden="true">
+          <label for="qWebsite">Leave this field blank</label>
+          <input type="text" id="qWebsite" name="b_website" tabindex="-1" autocomplete="off">
+        </div>
         <div class="row2">
           <div class="field">
             <label for="qName">Your name</label>
@@ -1180,6 +1338,8 @@ p{margin:0}
           <label for="qDetails">What's the situation?</label>
           <textarea id="qDetails" name="details" placeholder="Current site, what isn't working, timeline, anything else worth knowing."></textarea>
         </div>
+        <!-- Cloudflare Turnstile Verification -->
+        <div class="cf-turnstile" id="quoteTurnstile" data-sitekey="0x4AAAAAAEAEjHpygXojSwIT" data-action="turnstile-spin-v2" data-theme="dark" data-appearance="interaction-only" style="margin-block:1rem;"></div>
         <button type="submit" class="btn btn-primary">Send it over <span class="btn-arrow">→</span></button>
         <p class="qf-fine">No newsletter signup. No sales sequence. Just a reply.</p>
       </form>
@@ -1252,9 +1412,15 @@ p{margin:0}
         <h4>Occasional updates</h4>
         <p>Short notes on what's actually working in AI and web. A few times a year, never weekly.</p>
         <form class="news" id="newsForm">
+          <!-- Anti-spam honeypot field -->
+          <div style="position:absolute;left:-9999px;top:-9999px;height:1px;width:1px;overflow:hidden;" aria-hidden="true">
+            <input type="text" id="nWebsite" name="b_website" tabindex="-1" autocomplete="off">
+          </div>
           <label for="newsEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
           <input type="email" id="newsEmail" placeholder="you@company.com" autocomplete="email" required>
           <button type="submit" aria-label="Subscribe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <!-- Cloudflare Turnstile Verification -->
+          <div class="cf-turnstile" id="newsTurnstile" data-sitekey="0x4AAAAAAEAEjHpygXojSwIT" data-action="turnstile-spin-v2" data-theme="dark" data-appearance="interaction-only" style="margin-top:0.5rem;width:100%;"></div>
         </form>
       </div>
     </div>
@@ -1269,6 +1435,7 @@ p{margin:0}
 (function(){
   'use strict';
   var root = document.documentElement;
+  var pageLoadTime = Date.now();
 
   /* ---- Theme: saved choice > system preference > dark ---- */
   var saved = null;
@@ -1367,15 +1534,125 @@ p{margin:0}
 
   document.getElementById('yr').textContent = new Date().getFullYear();
 
-  /* ---- Forms: front-end only. Wire to your handler before launch. ---- */
-  document.getElementById('quoteForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    alert('Form submitted (demo). Connect this to your WordPress form handler, Formspree, or email endpoint before launch.');
-  });
-  document.getElementById('newsForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    alert('Newsletter signup (demo). Connect to your email platform before launch.');
-  });
+  /* ---- Resend Email Integration ---- */
+  var quoteForm = document.getElementById('quoteForm');
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = quoteForm.querySelector('button[type="submit"]');
+      var originalBtnText = btn.innerHTML;
+
+      var name = document.getElementById('qName').value.trim();
+      var email = document.getElementById('qEmail').value.trim();
+      var company = document.getElementById('qCompany').value.trim();
+      var budget = document.getElementById('qBudget').value;
+      var details = document.getElementById('qDetails').value.trim();
+
+      var services = [];
+      quoteForm.querySelectorAll('input[name="services"]:checked').forEach(function(cb) {
+        services.push(cb.value);
+      });
+
+      if (!name || !email) {
+        alert('Please fill in your name and email address.');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = 'Sending...';
+
+      var hpWebsite = document.getElementById('qWebsite') ? document.getElementById('qWebsite').value : '';
+      var duration = Date.now() - pageLoadTime;
+      var cfTurnstileResponse = quoteForm.querySelector('[name="cf-turnstile-response"]') ? quoteForm.querySelector('[name="cf-turnstile-response"]').value : '';
+
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'quote',
+          name: name,
+          email: email,
+          company: company,
+          budget: budget,
+          services: services,
+          details: details,
+          hpWebsite: hpWebsite,
+          duration: duration,
+          cfTurnstileResponse: cfTurnstileResponse
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+        quoteForm.innerHTML = '<div style="padding: 2.5rem; text-align: center; background: rgba(255,255,255,.05); border-radius: var(--radius); border: 1.5px solid var(--brand-orange);">' +
+          '<h3 style="font-size: 1.8rem; color: #fff; margin-bottom: 1rem;">Thank you, ' + escapeHtml(name) + '!</h3>' +
+          '<p style="color: var(--fg-body); font-size: 1.1rem; line-height: 1.6;">Your project quote request has been sent successfully. We sent a confirmation email to <strong>' + escapeHtml(email) + '</strong>.</p>' +
+          '<p style="color: var(--accent-ink); font-size: 0.95rem; margin-top: 1.2rem;">A senior principal will review your inquiry and reply within 1 business day.</p>' +
+          '</div>';
+      })
+      .catch(function(err) {
+        console.error('Submission error:', err);
+        btn.disabled = false;
+        btn.innerHTML = originalBtnText;
+        alert('Submission error: ' + (err.message || 'Unable to send') + '\n\nIf this persists, please email agency@capitolcodesign.com or call 916-616-8102.');
+      });
+
+      // Reset Turnstile token for retry safety
+      setTimeout(function() {
+        if (window.turnstile) { try { turnstile.reset('#quoteTurnstile'); } catch(e){} }
+      }, 0);
+    });
+  }
+
+  var newsForm = document.getElementById('newsForm');
+  if (newsForm) {
+    newsForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var input = document.getElementById('newsEmail');
+      var email = input.value.trim();
+      var btn = newsForm.querySelector('button[type="submit"]');
+
+      if (!email) return;
+
+      btn.disabled = true;
+
+      var nHpWebsite = document.getElementById('nWebsite') ? document.getElementById('nWebsite').value : '';
+      var duration = Date.now() - pageLoadTime;
+      var cfTurnstileResponse = newsForm.querySelector('[name="cf-turnstile-response"]') ? newsForm.querySelector('[name="cf-turnstile-response"]').value : '';
+
+      fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: 'newsletter',
+          email: email,
+          hpWebsite: nHpWebsite,
+          duration: duration,
+          cfTurnstileResponse: cfTurnstileResponse
+        })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        newsForm.innerHTML = '<span style="color: var(--brand-peach); font-size: 0.9rem; font-weight: 500;">✓ Subscribed! Thank you.</span>';
+      })
+      .catch(function(err) {
+        console.error('Newsletter error:', err);
+        btn.disabled = false;
+        alert('Could not subscribe. Please try again or email us directly.');
+      });
+
+      // Reset Turnstile token for retry safety
+      setTimeout(function() {
+        if (window.turnstile) { try { turnstile.reset('#newsTurnstile'); } catch(e){} }
+      }, 0);
+    });
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
 })();
 </script>
 </body>

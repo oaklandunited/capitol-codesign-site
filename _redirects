@@ -9,5 +9,7 @@
 /quote                 /#quote           301
 /ai                    /#ai              301
 
+/api/send-email       /.netlify/functions/send-email  200
+
 # Anything unmatched falls through to the 404 page.
 /*                     /404.html         404
