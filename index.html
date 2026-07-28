@@ -800,38 +800,38 @@ p{margin:0}
 
 /* ─────────── PROCESS SECTION ─────────── */
 .process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:2.5rem}
-.process-card{background:var(--bg-card);border:1px solid var(--line);border-radius:var(--radius);
+.process-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
   padding:2rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;
   transition:transform .3s var(--ease),border-color .3s,box-shadow .3s}
 .process-card:hover{transform:translateY(-4px);border-color:var(--brand-orange);box-shadow:var(--shadow)}
-.proc-step{font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--brand-orange);
+.proc-step{font-family:var(--display);font-size:2.2rem;font-weight:700;color:var(--accent-ink);
   line-height:1;margin-bottom:1rem}
-.process-card h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.6rem;color:var(--fg-head)}
+.process-card h3{font-family:var(--display);font-size:1.15rem;margin-bottom:.6rem;color:var(--fg)}
 .process-card p{font-size:.92rem;line-height:1.6;color:var(--fg-body);flex:1}
 .proc-time{display:inline-block;margin-top:1.2rem;font-size:.78rem;font-weight:600;
-  text-transform:uppercase;letter-spacing:.08em;color:var(--brand-peach);background:rgba(236,150,90,.1);
+  text-transform:uppercase;letter-spacing:.08em;color:var(--accent-ink);background:rgba(236,150,90,.12);
   padding:.3rem .65rem;border-radius:6px;width:max-content}
 
 /* ─────────── ROI CALCULATOR ─────────── */
-.roi-calc{background:var(--bg-inv);color:#fff;border-radius:var(--radius);padding:clamp(2rem,4vw,3.2rem);
-  margin-top:3.5rem;border:1px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
-.roi-head h3{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:.5rem;color:#fff}
-.roi-head p{color:var(--fg-body);max-width:54ch;font-size:1rem}
+.roi-calc{background:var(--brand-navy);color:#ffffff;border-radius:var(--radius);padding:clamp(2rem,4vw,3.2rem);
+  margin-top:3.5rem;border:1px solid rgba(255,255,255,.16);box-shadow:0 24px 50px -20px rgba(0,0,0,.5)}
+.roi-head h3{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:.5rem;color:#ffffff}
+.roi-head p{color:#c5d2e2;max-width:54ch;font-size:1rem}
 .roi-body{display:grid;grid-template-columns:1.2fr 1fr;gap:2.5rem;margin-top:2rem;align-items:center}
 .roi-inputs{display:grid;gap:1.8rem}
 .roi-field{display:grid;gap:.6rem}
-.roi-label-wrap{display:flex;justify-content:space-between;align-items:center;font-size:.92rem;color:var(--fg-body)}
+.roi-label-wrap{display:flex;justify-content:space-between;align-items:center;font-size:.92rem;color:#c5d2e2}
 .roi-val{font-family:var(--display);font-weight:600;color:var(--brand-orange);font-size:1.05rem}
 .roi-slider{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:4px;
-  background:rgba(255,255,255,.15);outline:none;cursor:pointer}
+  background:rgba(255,255,255,.2);outline:none;cursor:pointer}
 .roi-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;
-  border-radius:50%;background:var(--brand-orange);cursor:pointer;box-shadow:0 0 10px rgba(236,150,90,.5)}
+  border-radius:50%;background:var(--brand-orange);cursor:pointer;box-shadow:0 0 10px rgba(236,150,90,.6)}
 .roi-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--brand-orange);
   cursor:pointer;border:none}
-.roi-outputs{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);
+.roi-outputs{background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);
   padding:2rem;display:grid;gap:1.5rem;text-align:center}
 .roi-stat-box .roi-num{font-family:var(--display);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;
-  color:#fff;line-height:1}
+  color:#ffffff;line-height:1}
 .roi-stat-box.highlight .roi-num{color:var(--brand-orange)}
 .roi-stat-box .roi-desc{font-size:.85rem;color:var(--fg-body);margin-top:.4rem;text-transform:uppercase;letter-spacing:.06em}
 .roi-cta{width:100%;justify-content:center}
