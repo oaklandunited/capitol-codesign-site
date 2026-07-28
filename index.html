@@ -101,6 +101,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 
+<!-- Cloudflare Turnstile Script -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 <style>
 /* ═══════════════════════════════════════════════════════════════
    CAPITOL CODESIGN | DESIGN SYSTEM
@@ -1335,6 +1338,8 @@ p{margin:0}
           <label for="qDetails">What's the situation?</label>
           <textarea id="qDetails" name="details" placeholder="Current site, what isn't working, timeline, anything else worth knowing."></textarea>
         </div>
+        <!-- Cloudflare Turnstile Verification -->
+        <div class="cf-turnstile" id="quoteTurnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" data-appearance="interaction-only" style="margin-block:1rem;"></div>
         <button type="submit" class="btn btn-primary">Send it over <span class="btn-arrow">→</span></button>
         <p class="qf-fine">No newsletter signup. No sales sequence. Just a reply.</p>
       </form>
@@ -1414,6 +1419,8 @@ p{margin:0}
           <label for="newsEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
           <input type="email" id="newsEmail" placeholder="you@company.com" autocomplete="email" required>
           <button type="submit" aria-label="Subscribe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <!-- Cloudflare Turnstile Verification -->
+          <div class="cf-turnstile" id="newsTurnstile" data-sitekey="1x00000000000000000000AA" data-theme="dark" data-appearance="interaction-only" style="margin-top:0.5rem;width:100%;"></div>
         </form>
       </div>
     </div>
@@ -1556,6 +1563,7 @@ p{margin:0}
 
       var hpWebsite = document.getElementById('qWebsite') ? document.getElementById('qWebsite').value : '';
       var duration = Date.now() - pageLoadTime;
+      var cfTurnstileResponse = quoteForm.querySelector('[name="cf-turnstile-response"]') ? quoteForm.querySelector('[name="cf-turnstile-response"]').value : '';
 
       fetch('/api/send-email', {
         method: 'POST',
@@ -1569,7 +1577,8 @@ p{margin:0}
           services: services,
           details: details,
           hpWebsite: hpWebsite,
-          duration: duration
+          duration: duration,
+          cfTurnstileResponse: cfTurnstileResponse
         })
       })
       .then(function(res) { return res.json(); })
@@ -1606,6 +1615,7 @@ p{margin:0}
 
       var nHpWebsite = document.getElementById('nWebsite') ? document.getElementById('nWebsite').value : '';
       var duration = Date.now() - pageLoadTime;
+      var cfTurnstileResponse = newsForm.querySelector('[name="cf-turnstile-response"]') ? newsForm.querySelector('[name="cf-turnstile-response"]').value : '';
 
       fetch('/api/send-email', {
         method: 'POST',
@@ -1614,7 +1624,8 @@ p{margin:0}
           formType: 'newsletter',
           email: email,
           hpWebsite: nHpWebsite,
-          duration: duration
+          duration: duration,
+          cfTurnstileResponse: cfTurnstileResponse
         })
       })
       .then(function(res) { return res.json(); })

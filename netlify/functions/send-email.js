@@ -41,12 +41,22 @@ exports.handler = async (event, context) => {
     const data = JSON.parse(event.body || '{}');
     const formType = data.formType || 'quote';
 
-    // 🛡️ ANTI-SPAM DEFENSE LAYER 1
+    // 🛡️ ANTI-SPAM DEFENSE LAYER 1: Honeypot, Timing, Content Filters
     const spamCheck = isSpamSubmission(data);
     if (spamCheck.spam) {
       console.warn(`[SPAM BLOCKED] Reason: ${spamCheck.reason} | IP: ${clientIp} | Form: ${formType} | Email: ${data.email || 'N/A'}`);
-      
-      // Return fake 200 OK success so bots think submission succeeded and don't retry or adapt
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ success: true, message: 'Submission received successfully' })
+      };
+    }
+
+    // 🛡️ ANTI-SPAM DEFENSE LAYER 2: Cloudflare Turnstile Verification
+    const turnstileToken = data.cfTurnstileResponse || data['cf-turnstile-response'] || '';
+    const turnstileResult = await verifyTurnstileToken(turnstileToken, clientIp);
+    if (!turnstileResult.success) {
+      console.warn(`[TURNSTILE SPAM BLOCKED] Reason: ${turnstileResult.reason} | IP: ${clientIp} | Form: ${formType}`);
       return {
         statusCode: 200,
         headers,
@@ -197,13 +207,52 @@ exports.handler = async (event, context) => {
   }
 };
 
+async function verifyTurnstileToken(token, clientIp) {
+  const secretKey = process.env.CF_TURNSTILE_SECRET_KEY || '1x0000000000000000000000000000000AA';
+
+  // If no token was submitted and secret key is not configured, allow fallback
+  if (!token && !process.env.CF_TURNSTILE_SECRET_KEY) {
+    return { success: true };
+  }
+
+  if (!token) {
+    return { success: false, reason: 'Missing Turnstile response token' };
+  }
+
+  try {
+    const params = new URLSearchParams();
+    params.append('secret', secretKey);
+    params.append('response', token);
+    if (clientIp && clientIp !== 'unknown') {
+      params.append('remoteip', clientIp);
+    }
+
+    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      body: params
+    });
+
+    const result = await res.json();
+    if (result.success) {
+      return { success: true };
+    } else {
+      return {
+        success: false,
+        reason: `Verification failed (${(result['error-codes'] || []).join(', ')})`
+      };
+    }
+  } catch (err) {
+    console.error('Error calling Cloudflare siteverify:', err);
+    // Allow pass on API network exception to avoid blocking genuine users during cloud outage
+    return { success: true };
+  }
+}
+
 function isSpamSubmission(data) {
-  // 1. Honeypot check: If honeypot field is filled, it's a bot
   if (data.hpWebsite && String(data.hpWebsite).trim() !== '') {
     return { spam: true, reason: 'Honeypot field filled' };
   }
 
-  // 2. Submission duration check: Form submitted in under 2 seconds (2000ms)
   if (typeof data.duration === 'number' && data.duration < 2000) {
     return { spam: true, reason: `Fast submission duration (${data.duration}ms)` };
   }
@@ -215,12 +264,10 @@ function isSpamSubmission(data) {
     data.details || ''
   ].join(' ');
 
-  // 3. Cyrillic / Russian script detector
   if (/[\u0400-\u04FF]/.test(fullText)) {
     return { spam: true, reason: 'Cyrillic script detected' };
   }
 
-  // 4. URL / Link spam checks
   const urlRegex = /https?:\/\/[^\s]+/gi;
   const linksInNameCompany = ((data.name || '') + ' ' + (data.company || '')).match(urlRegex) || [];
   const linksInDetails = (data.details || '').match(urlRegex) || [];
@@ -232,7 +279,6 @@ function isSpamSubmission(data) {
     return { spam: true, reason: 'Excessive URLs in details (more than 2)' };
   }
 
-  // 5. Spam Keyword Blacklist
   const spamKeywords = [
     /\b(casino|pills|crypto|bitcoin|forex|viagra|cialis|gambling|porn|sex|xhamster)\b/i,
     /\b(telegram\.me|t\.me\/|wa\.me\/|whatsapp:|contact us on whatsapp)\b/i,
