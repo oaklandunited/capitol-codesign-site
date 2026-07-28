@@ -423,22 +423,22 @@ p{margin:0}
 }
 .hero-lede{font-size:clamp(1.08rem,1.55vw,1.3rem);color:var(--fg-body);max-width:50ch;margin-bottom:2.5rem}
 .hero-actions{display:flex;flex-wrap:wrap;gap:1rem}
-.hero-side{position:relative;border-left:1px solid var(--line);padding-left:clamp(1.5rem,2.5vw,2.4rem);display:grid;gap:1.9rem}
+.hero-side{position:relative;z-index:2;border-left:1px solid var(--line);padding-left:clamp(1.5rem,2.5vw,2.4rem);display:grid;gap:1.9rem}
 .hero-watermark{
   position:absolute;
-  top: clamp(4.5rem, 6vw, 6.5rem);
-  right: clamp(1.5rem, 4vw, 5rem);
-  width: clamp(140px, 16vw, 220px);
-  opacity: 0.22;
+  top: clamp(-1rem, 0vw, 1.5rem);
+  right: clamp(0rem, 1vw, 2rem);
+  width: clamp(220px, 24vw, 340px);
+  opacity: 0.24;
   pointer-events: none;
   user-select: none;
   z-index: 1;
-  filter: drop-shadow(0 0 35px rgba(236,150,90,.35));
+  filter: drop-shadow(0 0 45px rgba(236,150,90,.38));
   animation: heroWatermarkFloat 7s cubic-bezier(.45,0,.55,1) infinite alternate;
 }
 [data-theme="light"] .hero-watermark{
-  opacity: 0.25;
-  filter: drop-shadow(0 0 30px rgba(164,82,19,.25));
+  opacity: 0.26;
+  filter: drop-shadow(0 0 35px rgba(164,82,19,.28));
 }
 .hero-watermark img{
   width: 100%;
@@ -447,7 +447,7 @@ p{margin:0}
 }
 @keyframes heroWatermarkFloat{
   0%{ transform: translateY(0) rotate(0deg) scale(1); filter: drop-shadow(0 0 30px rgba(236,150,90,.3)); }
-  50%{ transform: translateY(-10px) rotate(2deg) scale(1.04); filter: drop-shadow(0 0 50px rgba(236,150,90,.5)); }
+  50%{ transform: translateY(-12px) rotate(2deg) scale(1.03); filter: drop-shadow(0 0 55px rgba(236,150,90,.5)); }
   100%{ transform: translateY(6px) rotate(-1.5deg) scale(0.97); filter: drop-shadow(0 0 25px rgba(236,150,90,.2)); }
 }
 .hero-stat{position:relative;z-index:2;transition:transform .3s var(--ease)}
@@ -976,6 +976,7 @@ p{margin:0}
 /* ─────────── RESPONSIVE ─────────── */
 @media (max-width:1000px){
   .hero-grid{grid-template-columns:1fr;align-items:start}
+  .hero-watermark{top:45%;left:50%;right:auto;transform:translate(-50%,-50%);width:clamp(220px,40vw,320px);opacity:.08;z-index:0}
   .hero-side{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:2rem;
     grid-template-columns:repeat(3,1fr);gap:1.5rem}
   .sec-head{grid-template-columns:1fr;align-items:start}
@@ -1073,12 +1074,12 @@ p{margin:0}
 
 <!-- ═══════════ HERO ═══════════ -->
 <section class="hero inv">
-  <!-- Translucent Watermark Logo in Top Right Corner -->
-  <div class="hero-watermark" aria-hidden="true">
-    <img src="/assets/logo.png" alt="" width="470" height="362" decoding="async">
-  </div>
   <div class="wrap">
     <div class="hero-grid">
+      <!-- Translucent Watermark Logo in Top Right Blank Space -->
+      <div class="hero-watermark" aria-hidden="true">
+        <img src="/assets/logo.png" alt="" width="470" height="362" decoding="async">
+      </div>
       <div>
         <div class="eyebrow">Sacramento Digital Agency</div>
         <h1>Your website should<br>be your best <span class="accent">salesperson.</span></h1>
