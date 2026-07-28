@@ -35,10 +35,24 @@ exports.handler = async (event, context) => {
   const resend = new Resend(apiKey);
   const fromEmail = process.env.FROM_EMAIL || 'Capitol CoDesign <agency@capitolcodesign.com>';
   const notificationEmail = process.env.NOTIFICATION_EMAIL || 'agency@capitolcodesign.com';
+  const clientIp = event.headers['client-ip'] || event.headers['x-nf-client-connection-ip'] || event.headers['x-forwarded-for'] || 'unknown';
 
   try {
     const data = JSON.parse(event.body || '{}');
     const formType = data.formType || 'quote';
+
+    // 🛡️ ANTI-SPAM DEFENSE LAYER 1
+    const spamCheck = isSpamSubmission(data);
+    if (spamCheck.spam) {
+      console.warn(`[SPAM BLOCKED] Reason: ${spamCheck.reason} | IP: ${clientIp} | Form: ${formType} | Email: ${data.email || 'N/A'}`);
+      
+      // Return fake 200 OK success so bots think submission succeeded and don't retry or adapt
+      return {
+        statusCode: 200,
+        headers,
+        body: JSON.stringify({ success: true, message: 'Submission received successfully' })
+      };
+    }
 
     if (formType === 'quote') {
       const { name, email, company, budget, services = [], details } = data;
@@ -107,7 +121,7 @@ exports.handler = async (event, context) => {
         };
       }
 
-      // 2. Send automated confirmation email to lead (swallow trial domain restrictions if lead isn't account owner)
+      // 2. Send automated confirmation email to lead
       try {
         await resend.emails.send({
           from: fromEmail,
@@ -182,6 +196,58 @@ exports.handler = async (event, context) => {
     };
   }
 };
+
+function isSpamSubmission(data) {
+  // 1. Honeypot check: If honeypot field is filled, it's a bot
+  if (data.hpWebsite && String(data.hpWebsite).trim() !== '') {
+    return { spam: true, reason: 'Honeypot field filled' };
+  }
+
+  // 2. Submission duration check: Form submitted in under 2 seconds (2000ms)
+  if (typeof data.duration === 'number' && data.duration < 2000) {
+    return { spam: true, reason: `Fast submission duration (${data.duration}ms)` };
+  }
+
+  const fullText = [
+    data.name || '',
+    data.email || '',
+    data.company || '',
+    data.details || ''
+  ].join(' ');
+
+  // 3. Cyrillic / Russian script detector
+  if (/[\u0400-\u04FF]/.test(fullText)) {
+    return { spam: true, reason: 'Cyrillic script detected' };
+  }
+
+  // 4. URL / Link spam checks
+  const urlRegex = /https?:\/\/[^\s]+/gi;
+  const linksInNameCompany = ((data.name || '') + ' ' + (data.company || '')).match(urlRegex) || [];
+  const linksInDetails = (data.details || '').match(urlRegex) || [];
+
+  if (linksInNameCompany.length > 0) {
+    return { spam: true, reason: 'URL inside name or company field' };
+  }
+  if (linksInDetails.length > 2) {
+    return { spam: true, reason: 'Excessive URLs in details (more than 2)' };
+  }
+
+  // 5. Spam Keyword Blacklist
+  const spamKeywords = [
+    /\b(casino|pills|crypto|bitcoin|forex|viagra|cialis|gambling|porn|sex|xhamster)\b/i,
+    /\b(telegram\.me|t\.me\/|wa\.me\/|whatsapp:|contact us on whatsapp)\b/i,
+    /\b(seo services|rank your website|google ranking|backlinks|first page of google|guest post|link building)\b/i,
+    /\b(make money|passive income|investment opportunity|financial freedom)\b/i
+  ];
+
+  for (const regex of spamKeywords) {
+    if (regex.test(fullText)) {
+      return { spam: true, reason: `Blacklisted pattern matched: ${regex.source}` };
+    }
+  }
+
+  return { spam: false };
+}
 
 function escapeHtml(str) {
   if (typeof str !== 'string') return str;

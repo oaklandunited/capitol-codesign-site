@@ -1287,6 +1287,11 @@ p{margin:0}
       </div>
 
       <form class="qf-card reveal" id="quoteForm" novalidate>
+        <!-- Anti-spam honeypot field (hidden from human visitors) -->
+        <div style="position:absolute;left:-9999px;top:-9999px;height:1px;width:1px;overflow:hidden;" aria-hidden="true">
+          <label for="qWebsite">Leave this field blank</label>
+          <input type="text" id="qWebsite" name="b_website" tabindex="-1" autocomplete="off">
+        </div>
         <div class="row2">
           <div class="field">
             <label for="qName">Your name</label>
@@ -1402,6 +1407,10 @@ p{margin:0}
         <h4>Occasional updates</h4>
         <p>Short notes on what's actually working in AI and web. A few times a year, never weekly.</p>
         <form class="news" id="newsForm">
+          <!-- Anti-spam honeypot field -->
+          <div style="position:absolute;left:-9999px;top:-9999px;height:1px;width:1px;overflow:hidden;" aria-hidden="true">
+            <input type="text" id="nWebsite" name="b_website" tabindex="-1" autocomplete="off">
+          </div>
           <label for="newsEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
           <input type="email" id="newsEmail" placeholder="you@company.com" autocomplete="email" required>
           <button type="submit" aria-label="Subscribe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
@@ -1419,6 +1428,7 @@ p{margin:0}
 (function(){
   'use strict';
   var root = document.documentElement;
+  var pageLoadTime = Date.now();
 
   /* ---- Theme: saved choice > system preference > dark ---- */
   var saved = null;
@@ -1544,6 +1554,9 @@ p{margin:0}
       btn.disabled = true;
       btn.innerHTML = 'Sending...';
 
+      var hpWebsite = document.getElementById('qWebsite') ? document.getElementById('qWebsite').value : '';
+      var duration = Date.now() - pageLoadTime;
+
       fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1554,7 +1567,9 @@ p{margin:0}
           company: company,
           budget: budget,
           services: services,
-          details: details
+          details: details,
+          hpWebsite: hpWebsite,
+          duration: duration
         })
       })
       .then(function(res) { return res.json(); })
@@ -1589,12 +1604,17 @@ p{margin:0}
 
       btn.disabled = true;
 
+      var nHpWebsite = document.getElementById('nWebsite') ? document.getElementById('nWebsite').value : '';
+      var duration = Date.now() - pageLoadTime;
+
       fetch('/api/send-email', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           formType: 'newsletter',
-          email: email
+          email: email,
+          hpWebsite: nHpWebsite,
+          duration: duration
         })
       })
       .then(function(res) { return res.json(); })
