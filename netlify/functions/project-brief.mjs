@@ -283,7 +283,7 @@ export default async function handler(req, context) {
       };
 
       try {
-        const apiKey = process.env.LLM_API_KEY;
+        const apiKey = process.env.LLM_API_KEY || process.env.OPENAI_API_KEY;
 
         if (apiKey) {
           // Live LLM Provider Integration
