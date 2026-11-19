@@ -633,6 +633,12 @@ p{margin:0}
     var open = nav.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(open));
   });
+  document.querySelectorAll('#navLinks a').forEach(function(a){
+    a.addEventListener('click', function(){
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
 
   /* ---- Elements ---- */
   var form = document.getElementById('briefForm');
@@ -713,6 +719,12 @@ p{margin:0}
     safe = safe.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
     safe = safe.replace(/\*(.*?)\*/gim, '<em>$1</em>');
 
+    // Numbered lists (e.g. 1. Item)
+    safe = safe.replace(/^\s*\d+\.\s+(.*$)/gim, '<oli>$1</oli>');
+    safe = safe.replace(/(<oli>.*<\/oli>)/gis, '<ol>$1</ol>');
+    safe = safe.replace(/<\/ol>\s*<ol>/gim, '');
+    safe = safe.replace(/<oli>/gim, '<li>').replace(/<\/oli>/gim, '</li>');
+
     // Unordered lists
     safe = safe.replace(/^\s*-\s+(.*$)/gim, '<li>$1</li>');
     safe = safe.replace(/(<li>.*<\/li>)/gis, '<ul>$1</ul>');
@@ -727,8 +739,8 @@ p{margin:0}
     // Paragraph breaks
     safe = safe.replace(/\n\n+/g, '</p><p>');
     safe = '<p>' + safe + '</p>';
-    safe = safe.replace(/<p><(h1|h2|h3|ul)>/gim, '<$1>');
-    safe = safe.replace(/<\/(h1|h2|h3|ul)><\/p>/gim, '</$1>');
+    safe = safe.replace(/<p><(h1|h2|h3|ul|ol)>/gim, '<$1>');
+    safe = safe.replace(/<\/(h1|h2|h3|ul|ol)><\/p>/gim, '</$1>');
     safe = safe.replace(/<p>\s*<\/p>/gim, '');
 
     return safe;
@@ -884,6 +896,10 @@ p{margin:0}
       setStatus('complete', 'Complete');
       showToast('Brief generated successfully!');
     }
+
+    setTimeout(function() {
+      if (window.turnstile) { try { turnstile.reset('#briefTurnstile'); } catch(e){} }
+    }, 0);
   }
 
   /* ---- Stop Generation ---- */
@@ -940,6 +956,9 @@ p{margin:0}
       resetBtn.style.display = 'none';
       btnLabel.textContent = 'Generate my project brief';
       setStatus('idle', 'Ready');
+      setTimeout(function() {
+        if (window.turnstile) { try { turnstile.reset('#briefTurnstile'); } catch(e){} }
+      }, 0);
     }
   });
 

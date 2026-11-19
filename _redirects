@@ -13,5 +13,10 @@
 /api/project-brief    /.netlify/functions/project-brief 200
 /project-brief        /project-brief.html             200
 
+# Block public access to internal documentation, dependencies, and environment files
+/*.md                  /404.html         404!
+/package*.json         /404.html         404!
+/.env*                 /404.html         404!
+
 # Anything unmatched falls through to the 404 page.
 /*                     /404.html         404

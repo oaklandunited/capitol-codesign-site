@@ -64,9 +64,16 @@ Ready to review this brief together? Schedule a focused 45-minute discovery audi
 `;
 
 export default async function handler(req, context) {
-  const origin = req.headers.get('origin') || '*';
+  const reqOrigin = req.headers.get('origin') || '';
+  const isAllowedOrigin =
+    reqOrigin === 'https://capitolcodesign.com' ||
+    reqOrigin === 'https://www.capitolcodesign.com' ||
+    reqOrigin.endsWith('.netlify.app') ||
+    reqOrigin.startsWith('http://localhost:');
+  const allowedOrigin = isAllowedOrigin ? reqOrigin : 'https://capitolcodesign.com';
+
   const corsHeaders = {
-    'Access-Control-Allow-Origin': origin,
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type, X-Turnstile-Token',
     'Access-Control-Allow-Methods': 'POST, OPTIONS'
   };

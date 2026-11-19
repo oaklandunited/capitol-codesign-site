@@ -1,8 +1,16 @@
 const { Resend } = require('resend');
 
 exports.handler = async (event, context) => {
+  const reqOrigin = event.headers['origin'] || event.headers['Origin'] || '';
+  const isAllowedOrigin =
+    reqOrigin === 'https://capitolcodesign.com' ||
+    reqOrigin === 'https://www.capitolcodesign.com' ||
+    reqOrigin.endsWith('.netlify.app') ||
+    reqOrigin.startsWith('http://localhost:');
+  const allowedOrigin = isAllowedOrigin ? reqOrigin : 'https://capitolcodesign.com';
+
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allowedOrigin,
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Content-Type': 'application/json'
