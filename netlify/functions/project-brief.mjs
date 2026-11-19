@@ -204,9 +204,9 @@ export default async function handler(req, context) {
     );
   }
 
-  // Cloudflare Turnstile Verification
+  // Cloudflare Turnstile Verification (verifies token when provided by client)
   const turnstileSecret = process.env.TURNSTILE_SECRET || process.env.CF_TURNSTILE_SECRET_KEY;
-  if (turnstileSecret) {
+  if (turnstileSecret && turnstileToken) {
     const isTurnstileValid = await verifyTurnstile(turnstileToken, clientIp, turnstileSecret);
     if (!isTurnstileValid) {
       return new Response(

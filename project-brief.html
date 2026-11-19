@@ -498,7 +498,7 @@ p{margin:0}
             </label>
 
             <!-- Cloudflare Turnstile Verification -->
-            <div class="cf-turnstile" id="briefTurnstile" data-sitekey="0x4AAAAAAEAEjHpygXojSwIT" data-action="turnstile-spin-v2" data-theme="dark" data-appearance="interaction-only" style="margin-bottom:1.2rem;width:100%;"></div>
+            <div class="cf-turnstile" id="briefTurnstile" data-sitekey="0x4AAAAAAEAEjHpygXojSwIT" data-action="turnstile-spin-v2" data-theme="dark" data-appearance="always" style="margin-bottom:1.2rem;width:100%;"></div>
 
             <button type="submit" id="submitBtn" class="btn btn-primary" style="width:100%;">
               <span id="btnLabel">Generate my project brief</span>
@@ -783,8 +783,16 @@ p{margin:0}
       return;
     }
 
-    var turnstileWidget = document.querySelector('[name="cf-turnstile-response"]');
-    var turnstileToken = turnstileWidget ? turnstileWidget.value : '';
+    var turnstileToken = '';
+    if (window.turnstile) {
+      try {
+        turnstileToken = turnstile.getResponse('#briefTurnstile') || turnstile.getResponse() || '';
+      } catch (te) {}
+    }
+    if (!turnstileToken) {
+      var turnstileWidget = document.querySelector('#briefTurnstile [name="cf-turnstile-response"]') || document.querySelector('[name="cf-turnstile-response"]');
+      turnstileToken = turnstileWidget ? turnstileWidget.value : '';
+    }
 
     // Begin generation
     isGenerating = true;
