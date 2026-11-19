@@ -14,3 +14,9 @@ desktop.ini
 # Node (only if you later add tooling)
 node_modules/
 npm-debug.log*
+
+# Environment & Secrets
+.env
+.env.*
+.env.local
+!.env.example
